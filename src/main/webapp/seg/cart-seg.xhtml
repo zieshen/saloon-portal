@@ -1,0 +1,93 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:jsf="http://xmlns.jcp.org/jsf">
+    <section class="sec-pad1">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-6 col-md-8 align-center">
+                    <h2 class="mbr-section-title align-center mbr-fonts-style mbr-bold display-4">
+                        <h:outputLabel value="My Cart"></h:outputLabel>
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <ui:fragment>
+                <div class="row">
+                    <c:set var="prodTotal" value="0"/>
+                    <c:set var="servTotal" value="0"/>
+                    <h:outputText class="alert alert-warning" value="No item found in your cart" rendered="#{userBean.cart.size() eq 0}"></h:outputText>
+                    <c:forEach items="#{userBean.cart}" var="prod" varStatus="indx">
+                        <c:set var="prodTotal" value="#{prodTotal + prod.prodPrice}"/>
+                        <c:set var="servTotal" value="#{servTotal + (prod.durationInMin * 5)}"/>
+                        <div class="card border-danger mb-3" style="max-width: 18rem;">
+                            <h:form>
+                                <div class="card-header" style="background-color: #fe525b;">
+                                    <span class="fa fa-clock-o" style="color: white;font-size: 1.3em"></span>
+                                    <span style="color: white">(#{prod.durationInMin} Mins)</span>
+                                    <span style="float: right">
+                                        <h:commandLink action="#{userBean.removeCart(prod)}" style="color: white"><i style="font-size: 1.3em" class="fa fa-window-close-o"></i></h:commandLink>
+                                    </span>
+                                </div>
+                                <div class="card-body text-danger">
+                                    <h5 class="card-title">#{prod.name}</h5>
+                                    <p class="card-text">#{prod.summary}</p>
+                                    <h:outputLabel class="card-text" escape="false" value="#{prod.descr}"></h:outputLabel>
+                                    <p class="card-text">Product Price: #{prod.prodPrice}</p>
+                                    <p class="card-text">Service Charge: #{prod.durationInMin * 5}</p>
+                                </div>
+                            </h:form>
+                        </div>
+                    </c:forEach>
+                </div>
+                <div class="row" jsf:rendered="#{userBean.cart.size() gt 0}">
+                    <div class="col-2">
+                        <div class="col-auto my-1">
+                            <label class="">Total: #{prodTotal + servTotal}</label>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="col-auto my-1">
+                            <label class="">Deal: #{prodTotal + servTotal - (prodTotal + servTotal) * 0.2} (20% off)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" jsf:rendered="#{userBean.cart.size() gt 0}">
+                    <div class="col6-sm">
+                        <div class="col-auto my-1">
+                            <label class="">Total: #{prodTotal + servTotal}</label>
+                        </div>
+                    </div>
+                    <div class="col6-sm">
+                        <div class="col-auto my-1">
+                            <label class="">Deal: #{prodTotal + servTotal - (prodTotal + servTotal) * 0.2} (20% off)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" jsf:rendered="#{userBean.cart.size() gt 0}">
+                    <h:form>
+                        <div class="col-sm">
+                            <div class="col-auto my-1">
+                                <div class="custom-control custom-checkbox mr-sm-2">
+                                    <input type="checkbox" class="custom-control-input" id="customControlAutosizing" checked="true" jsf:rendered="#{userBean.cart.size() gt 0}" required="true"/>
+                                    <label class="custom-control-label" for="customControlAutosizing" jsf:rendered="#{userBean.cart.size() gt 0}">I have read Terms &amp; Conditions</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" onclick="getLocation()">Checkout</button>
+                        </div>
+                    </h:form>
+                </div>
+
+            </ui:fragment>
+        </div>
+    </section>
+    <ui:include src="/seg/slots-seg.xhtml"></ui:include>
+</ui:composition>

@@ -1,0 +1,29 @@
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <section style="margin-top: 7px;">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <c:forEach items="#{homeBean.banners}" var="prod" varStatus="indx">
+                    <li data-target="#myCarousel" data-slide-to="#{indx.index}"></li>
+                </c:forEach>
+            </ol>
+            <div class="carousel-inner">
+                <c:forEach items="#{homeBean.banners}" var="prod" varStatus="indx">
+                    <div class="carousel-item #{indx.index  == 0 ? 'active' : ''}">
+                        <h:graphicImage name="#{prod.img}" library="images" class="d-block w-100"></h:graphicImage>
+                    </div>
+                </c:forEach>
+            </div>
+            <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </section>
+</ui:composition>

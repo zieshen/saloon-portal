@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <section class="sec-pad1">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-6 col-md-8 align-center">
+                    <h2 class="mbr-section-title align-center mbr-fonts-style mbr-bold display-4">
+                        <h:outputLabel value="Packages"></h:outputLabel>
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <ui:fragment>
+                <div class="row">
+                    <c:forEach items="#{packageBean.packages}" var="prod" varStatus="indx">
+                        <div class="col-lg-3">
+                            <h:link outcome="offers.xhtml">
+                                <h:graphicImage name="#{prod.img1}" library="images" class="card-img-top" height="200"></h:graphicImage>
+                                <h5 class="card-title">#{prod.name}</h5>
+                                <p class="card-text">#{prod.descr}</p>
+                                <f:param name="pckgId" value="#{prod.id}"></f:param>
+                            </h:link>
+                            <hr/>
+                        </div>
+                    </c:forEach>
+                </div>
+            </ui:fragment>    
+        </div>
+    </section>
+</ui:composition>

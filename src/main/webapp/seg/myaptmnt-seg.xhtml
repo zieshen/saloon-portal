@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <section class="sec-pad1">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-6 col-md-8 align-center">
+                    <h2 class="mbr-section-title align-center mbr-fonts-style mbr-bold display-4">
+                        <h:outputLabel value="My Appointments"></h:outputLabel>
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container marketing">
+            <div class="row">
+                <h:outputText class="alert alert-warning" value="No booking found" rendered="#{userBean.bookings.stream().count() eq 0}"></h:outputText>
+                <c:forEach items="#{userBean.bookings}" var="prod" varStatus="indx">
+                    <div class="card border-danger mb-3" style="max-width: 18rem;">
+                        <h:form>
+                            <div class="card-header" style="background-color: #fe525b;">
+                                <span class="fa fa-calendar" style="color: white"></span>
+                                <span style="color: white">#{prod.date}</span>
+                            </div>
+                            <div class="card-body text-danger">
+                                <c:forEach items="#{prod.offers}" var="offer" varStatus="dx">
+                                    <span class="card-text">#{offer.name}</span>
+                                    <span class="card-text" style="float: right">#{offer.durationInMin}mins</span>
+                                </c:forEach>
+                                <hr/>
+                                <p class="card-text text-uppercase">Address:</p>
+                                <span>#{prod.address1}</span>
+                                <span>#{prod.address2}</span>
+                                <span>#{prod.city}</span>
+                                <span>#{prod.zip}</span>
+                            </div>
+                        </h:form>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+    </section>
+</ui:composition>

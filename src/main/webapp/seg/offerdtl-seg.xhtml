@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:jsf="http://xmlns.jcp.org/jsf">
+    <section>
+        <div class="modal fade" id="mod#{prod.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #fe525b; color: white">
+                        <h5 class="modal-title" id="exampleModalLongTitle">#{prod.name}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="fa fa-window-close"></i></span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5 class="card-title">#{prod.summary}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">#{prod.durationInMin} (Mins)</h6>
+                        <span style="margin-left: 1em;"><h:outputLabel class="card-text" escape="false" value="#{prod.descr}"></h:outputLabel></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</ui:composition>
